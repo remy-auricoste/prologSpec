@@ -8,7 +8,7 @@ import org.junit.Test;
  *
  * @version $Revision$ $Date$
  */
-public abstract class TestMachine extends TestCase {
+public abstract class ATestMachine extends TestCase {
 
     protected abstract IProlog getImpl();
     

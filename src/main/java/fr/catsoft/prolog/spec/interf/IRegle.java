@@ -1,5 +1,7 @@
 package fr.catsoft.prolog.spec.interf;
 
+import fr.catsoft.commons.common.modele.interfaces.Clonable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +12,7 @@ import java.util.List;
  * Time: 11:09
  * To change this template use File | Settings | File Templates.
  */
-public interface IRegle {
+public interface IRegle extends Clonable<IRegle> {
 
     List<ITerme> getConditions();
 

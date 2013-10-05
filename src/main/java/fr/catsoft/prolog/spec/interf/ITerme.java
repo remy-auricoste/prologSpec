@@ -1,5 +1,7 @@
 package fr.catsoft.prolog.spec.interf;
 
+import fr.catsoft.commons.common.modele.interfaces.Clonable;
+
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +12,7 @@ import java.util.Map;
  * Time: 11:08
  * To change this template use File | Settings | File Templates.
  */
-public interface ITerme {
+public interface ITerme extends Clonable<ITerme> {
 
     String getNom();
 

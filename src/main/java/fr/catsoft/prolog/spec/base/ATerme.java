@@ -102,4 +102,13 @@ public abstract class ATerme implements ITerme {
         }
         return retour + ")";
     }
+
+    @Override
+    public ATerme clone() {
+        try {
+            return (ATerme) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

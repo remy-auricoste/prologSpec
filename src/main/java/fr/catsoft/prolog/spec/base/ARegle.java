@@ -1,5 +1,6 @@
 package fr.catsoft.prolog.spec.base;
 
+import fr.catsoft.commons.common.logger.Logger;
 import fr.catsoft.prolog.spec.interf.IRegle;
 import fr.catsoft.prolog.spec.interf.ITerme;
 
@@ -61,5 +62,14 @@ public abstract class ARegle implements IRegle {
             retour += terme;
         }
         return retour;
+    }
+
+    @Override
+    public ARegle clone() {
+        try {
+            return (ARegle) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

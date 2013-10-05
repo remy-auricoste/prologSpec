@@ -1,6 +1,9 @@
+package fr.catsoft.prolog.spec.test;
+
 import fr.catsoft.prolog.spec.interf.IProlog;
 import fr.catsoft.prolog.spec.interf.IReponse;
 import junit.framework.TestCase;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -16,16 +19,16 @@ public abstract class ATestMachine extends TestCase {
     public void testFaitSimple() {
         IProlog machine = getImpl();
         machine.ajouterFait(machine.creerTerme("parent(jean,charles)"));
-        assertTrue(machine.questionner(machine.creerTerme("parent(jean,charles)")).isVrai());
-        assertFalse(machine.questionner(machine.creerTerme("parent(jea,charles)")).isVrai());
+        Assert.assertTrue(machine.questionner(machine.creerTerme("parent(jean,charles)")).isVrai());
+        Assert.assertFalse(machine.questionner(machine.creerTerme("parent(jea,charles)")).isVrai());
     }
 
     @Test
     public void testFaitGenerique() {
         IProlog machine = getImpl();
         machine.ajouterFait(machine.creerTerme("parent(jean,X)"));
-        assertTrue(machine.questionner(machine.creerTerme("parent(jean,Y)")).isVrai());
-        assertFalse(machine.questionner(machine.creerTerme("parent(jea,Y)")).isVrai());
+        Assert.assertTrue(machine.questionner(machine.creerTerme("parent(jean,Y)")).isVrai());
+        Assert.assertFalse(machine.questionner(machine.creerTerme("parent(jea,Y)")).isVrai());
     }
 
     @Test
@@ -33,9 +36,9 @@ public abstract class ATestMachine extends TestCase {
         IProlog machine = getImpl();
         machine.ajouterFait(machine.creerTerme("pere(jean,charles)"));
         machine.ajouterRegle(machine.creerRegle(machine.creerTerme("parent(X,Y)"), machine.creerTerme("pere(X,Y)")));
-        assertTrue(machine.questionner(machine.creerTerme("parent(jean,charles)")).isVrai());
-        assertFalse(machine.questionner(machine.creerTerme("parent(jean,charle)")).isVrai());
-        assertFalse(machine.questionner(machine.creerTerme("parent(jea,charles)")).isVrai());
+        Assert.assertTrue(machine.questionner(machine.creerTerme("parent(jean,charles)")).isVrai());
+        Assert.assertFalse(machine.questionner(machine.creerTerme("parent(jean,charle)")).isVrai());
+        Assert.assertFalse(machine.questionner(machine.creerTerme("parent(jea,charles)")).isVrai());
     }
 
     @Test
@@ -44,8 +47,8 @@ public abstract class ATestMachine extends TestCase {
         machine.ajouterFait(machine.creerTerme("parent(jean,charles)"));
         machine.ajouterFait(machine.creerTerme("parent(jean,louis)"));
         IReponse reponse = machine.questionner(machine.creerTerme("parent(jean,X)"));
-        assertTrue(reponse.isVrai());
-        assertTrue(reponse.getFaits().size() == 2);
+        Assert.assertTrue(reponse.isVrai());
+        Assert.assertTrue(reponse.getFaits().size() == 2);
     }
 
     @Test
@@ -56,8 +59,8 @@ public abstract class ATestMachine extends TestCase {
         machine.ajouterRegle(machine.creerRegle(machine.creerTerme("parent(jean,charles)"), machine.creerTerme("pere(jean,charles)")));
         machine.ajouterRegle(machine.creerRegle(machine.creerTerme("parent(jean,louis)"), machine.creerTerme("pere(jean,louis)")));
         IReponse reponse = machine.questionner(machine.creerTerme("parent(jean,X)"));
-        assertTrue(reponse.isVrai());
-        assertTrue(reponse.getFaits() + "", reponse.getFaits().size() == 2);
+        Assert.assertTrue(reponse.isVrai());
+        Assert.assertTrue(reponse.getFaits() + "", reponse.getFaits().size() == 2);
     }
 
     @Test
@@ -67,8 +70,8 @@ public abstract class ATestMachine extends TestCase {
         machine.ajouterFait(machine.creerTerme("pere(jean,louis)"));
         machine.ajouterRegle(machine.creerRegle(machine.creerTerme("parent(X,Y)"), machine.creerTerme("pere(X,Y)")));
         IReponse reponse = machine.questionner(machine.creerTerme("parent(jean,X)"));
-        assertTrue(reponse.isVrai());
-        assertTrue(reponse.getFaits() + "", reponse.getFaits().size() == 2);
+        Assert.assertTrue(reponse.isVrai());
+        Assert.assertTrue(reponse.getFaits() + "", reponse.getFaits().size() == 2);
     }
 
     @Test
@@ -83,15 +86,15 @@ public abstract class ATestMachine extends TestCase {
         machine.ajouterRegle(machine.creerRegle(machine.creerTerme("pere(X,Y)"), machine.creerTerme("parent(X,Y)"), machine.creerTerme("male(X)")));
         machine.ajouterRegle(machine.creerRegle(machine.creerTerme("mere(X,Y)"), machine.creerTerme("parent(X,Y)"), machine.creerTerme("female(X)")));
         IReponse reponse = machine.questionner(machine.creerTerme("pere(Y,X)"));
-        assertTrue(reponse.isVrai());
-        assertTrue(reponse.getFaits() + "", reponse.getFaits().size() == 2);
+        Assert.assertTrue(reponse.isVrai());
+        Assert.assertTrue(reponse.getFaits() + "", reponse.getFaits().size() == 2);
 
         reponse = machine.questionner(machine.creerTerme("pere(Y,Y)"));
-        assertFalse(reponse.isVrai());
+        Assert.assertFalse(reponse.isVrai());
 
         reponse = machine.questionner(machine.creerTerme("mere(Y,X)"));
-        assertTrue(reponse.isVrai());
-        assertTrue(reponse.getFaits() + "", reponse.getFaits().size() == 2);
+        Assert.assertTrue(reponse.isVrai());
+        Assert.assertTrue(reponse.getFaits() + "", reponse.getFaits().size() == 2);
     }
 
     @Test
@@ -101,7 +104,7 @@ public abstract class ATestMachine extends TestCase {
         machine.ajouterRegle(machine.creerRegle(machine.creerTerme("rond(X,Y)"), machine.creerTerme("rond(Y,X)")));
 
         IReponse reponse = machine.questionner(machine.creerTerme("rond(Y,X)"));
-        assertTrue(!reponse.isVrai());
+        Assert.assertTrue(!reponse.isVrai());
     }
 
     @Test
@@ -111,7 +114,7 @@ public abstract class ATestMachine extends TestCase {
         machine.ajouterRegle(machine.creerRegle(machine.creerTerme("A(B,C)"), machine.creerTerme("A(C,B)")));
 
         IReponse reponse = machine.questionner(machine.creerTerme("sym(b,a)"));
-        assertTrue(reponse.isVrai());
+        Assert.assertTrue(reponse.isVrai());
     }
 
     @Test
@@ -128,9 +131,9 @@ public abstract class ATestMachine extends TestCase {
         IReponse reponse;
 
         reponse = machine.questionner(machine.creerTerme("fonc(b,c)"));
-        assertTrue(reponse.isVrai());
+        Assert.assertTrue(reponse.isVrai());
         reponse = machine.questionner(machine.creerTerme("sym(a,a)"));
-        assertTrue(reponse.isVrai());
+        Assert.assertTrue(reponse.isVrai());
     }
 
     @Test
@@ -139,7 +142,7 @@ public abstract class ATestMachine extends TestCase {
         machine.ajouterFait(machine.creerTerme("present(jean)"));
         machine.ajouterRegle(machine.creerRegle(machine.creerTerme("absent(X)"), machine.creerTerme("!(present(X))")));
         machine.ajouterRegle(machine.creerRegle(machine.creerTerme("present(X)"), machine.creerTerme("!(absent(X))")));
-        assertTrue(machine.questionner(machine.creerTerme("!(absent(jean))")).isVrai());
-        assertTrue(machine.questionner(machine.creerTerme("absent(jeanne)")).isVrai());
+        Assert.assertTrue(machine.questionner(machine.creerTerme("!(absent(jean))")).isVrai());
+        Assert.assertTrue(machine.questionner(machine.creerTerme("absent(jeanne)")).isVrai());
     }
 }

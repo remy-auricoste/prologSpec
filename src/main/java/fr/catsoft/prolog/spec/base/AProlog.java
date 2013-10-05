@@ -18,7 +18,7 @@ import java.util.List;
  */
 public abstract class AProlog implements IProlog {
 
-    private IRegleManager regleManager;
+    protected IRegleManager regleManager;
 
     public AProlog(IRegleManager regleManager) {
         this.regleManager = regleManager;

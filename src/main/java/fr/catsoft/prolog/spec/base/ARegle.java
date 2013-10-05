@@ -1,5 +1,6 @@
 package fr.catsoft.prolog.spec.base;
 
+import fr.catsoft.commons.common.exception.ApplicationException;
 import fr.catsoft.commons.common.logger.Logger;
 import fr.catsoft.prolog.spec.interf.IRegle;
 import fr.catsoft.prolog.spec.interf.ITerme;
@@ -69,7 +70,7 @@ public abstract class ARegle implements IRegle {
         try {
             return (ARegle) super.clone();
         } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
+            throw new ApplicationException(e);
         }
     }
 }

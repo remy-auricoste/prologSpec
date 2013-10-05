@@ -1,5 +1,6 @@
 package fr.catsoft.prolog.spec.base;
 
+import fr.catsoft.commons.common.exception.ApplicationException;
 import fr.catsoft.commons.common.outil.OutilChaine;
 import fr.catsoft.prolog.spec.interf.IProlog;
 import fr.catsoft.prolog.spec.interf.IRegle;
@@ -45,7 +46,7 @@ public abstract class AProlog implements IProlog {
         int index = chaine.indexOf('(');
         if (index != -1) {
             if (!chaine.endsWith(")")) {
-                throw new RuntimeException();
+                throw new ApplicationException("La chaine " + chaine + " contient ( mais ne finit pas par )");
             }
             String nom = chaine.substring(0, index);
             String contenu = chaine.substring(index + 1, chaine.length() - 1);

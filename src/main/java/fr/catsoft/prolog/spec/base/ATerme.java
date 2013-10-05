@@ -1,5 +1,6 @@
 package fr.catsoft.prolog.spec.base;
 
+import fr.catsoft.commons.common.exception.ApplicationException;
 import fr.catsoft.prolog.spec.interf.ITerme;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public abstract class ATerme implements ITerme {
 
     public void setNom(String nom) {
         if (nom == null || nom.length() == 0) {
-            throw new RuntimeException("Le nom ne peut pas etre vide");
+            throw new ApplicationException("Le nom ne peut pas etre vide");
         }
         this.nom = nom;
     }
@@ -108,7 +109,7 @@ public abstract class ATerme implements ITerme {
         try {
             return (ATerme) super.clone();
         } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
+            throw new ApplicationException(e);
         }
     }
 }

@@ -25,4 +25,6 @@ public interface IProlog {
     void ajouterRegle(IRegle regle);
 
     IReponse questionner(ITerme terme);
+
+    IReponse questionner(List<ITerme> termes);
 }

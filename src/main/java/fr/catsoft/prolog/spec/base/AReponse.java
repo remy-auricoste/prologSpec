@@ -3,8 +3,7 @@ package fr.catsoft.prolog.spec.base;
 import fr.catsoft.prolog.spec.interf.IReponse;
 import fr.catsoft.prolog.spec.interf.ITerme;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,17 +14,10 @@ import java.util.Set;
  */
 public abstract class AReponse implements IReponse {
 
-    private Set<ITerme> faits;
-
     public AReponse() {
-        faits = new HashSet<ITerme>();
     }
 
     public boolean isVrai() {
-        return !getFaits().isEmpty();
-    }
-
-    public Set<ITerme> getFaits() {
-        return faits;
+        return getFaitsMultiples().iterator().hasNext();
     }
 }

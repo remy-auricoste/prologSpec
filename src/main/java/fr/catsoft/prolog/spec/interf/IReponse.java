@@ -1,5 +1,6 @@
 package fr.catsoft.prolog.spec.interf;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,5 +14,7 @@ import java.util.Set;
 public interface IReponse {
     boolean isVrai();
 
-    Set<ITerme> getFaits();
+    Iterable<ITerme> getFaitsSimples();
+
+    Iterable<List<ITerme>> getFaitsMultiples();
 }

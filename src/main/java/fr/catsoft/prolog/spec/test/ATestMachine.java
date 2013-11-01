@@ -14,7 +14,15 @@ import org.junit.Test;
 public abstract class ATestMachine extends TestCase {
 
     protected abstract IProlog getImpl();
-    
+
+    private int getSize(Iterable<?> iterable) {
+        int cpt = 0;
+        for (Object objet : iterable) {
+            cpt++;
+        }
+        return cpt;
+    }
+
     @Test
     public void testFaitSimple() {
         IProlog machine = getImpl();
@@ -48,7 +56,7 @@ public abstract class ATestMachine extends TestCase {
         machine.ajouterFait(machine.creerTerme("parent(jean,louis)"));
         IReponse reponse = machine.questionner(machine.creerTerme("parent(jean,X)"));
         Assert.assertTrue(reponse.isVrai());
-        Assert.assertTrue(reponse.getFaits().size() == 2);
+        Assert.assertTrue(getSize(reponse.getFaitsSimples()) == 2);
     }
 
     @Test
@@ -60,7 +68,7 @@ public abstract class ATestMachine extends TestCase {
         machine.ajouterRegle(machine.creerRegle(machine.creerTerme("parent(jean,louis)"), machine.creerTerme("pere(jean,louis)")));
         IReponse reponse = machine.questionner(machine.creerTerme("parent(jean,X)"));
         Assert.assertTrue(reponse.isVrai());
-        Assert.assertTrue(reponse.getFaits() + "", reponse.getFaits().size() == 2);
+        Assert.assertTrue(reponse.getFaitsSimples() + "", getSize(reponse.getFaitsSimples()) == 2);
     }
 
     @Test
@@ -71,7 +79,7 @@ public abstract class ATestMachine extends TestCase {
         machine.ajouterRegle(machine.creerRegle(machine.creerTerme("parent(X,Y)"), machine.creerTerme("pere(X,Y)")));
         IReponse reponse = machine.questionner(machine.creerTerme("parent(jean,X)"));
         Assert.assertTrue(reponse.isVrai());
-        Assert.assertTrue(reponse.getFaits() + "", reponse.getFaits().size() == 2);
+        Assert.assertTrue(reponse.getFaitsSimples() + "", getSize(reponse.getFaitsSimples()) == 2);
     }
 
     @Test
@@ -87,14 +95,14 @@ public abstract class ATestMachine extends TestCase {
         machine.ajouterRegle(machine.creerRegle(machine.creerTerme("mere(X,Y)"), machine.creerTerme("parent(X,Y)"), machine.creerTerme("female(X)")));
         IReponse reponse = machine.questionner(machine.creerTerme("pere(Y,X)"));
         Assert.assertTrue(reponse.isVrai());
-        Assert.assertTrue(reponse.getFaits() + "", reponse.getFaits().size() == 2);
+        Assert.assertTrue(reponse.getFaitsSimples() + "", getSize(reponse.getFaitsSimples()) == 2);
 
         reponse = machine.questionner(machine.creerTerme("pere(Y,Y)"));
         Assert.assertFalse(reponse.isVrai());
 
         reponse = machine.questionner(machine.creerTerme("mere(Y,X)"));
         Assert.assertTrue(reponse.isVrai());
-        Assert.assertTrue(reponse.getFaits() + "", reponse.getFaits().size() == 2);
+        Assert.assertTrue(reponse.getFaitsSimples() + "", getSize(reponse.getFaitsSimples()) == 2);
     }
 
     @Test

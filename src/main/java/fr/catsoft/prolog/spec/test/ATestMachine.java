@@ -2,9 +2,12 @@ package fr.catsoft.prolog.spec.test;
 
 import fr.catsoft.prolog.spec.interf.IProlog;
 import fr.catsoft.prolog.spec.interf.IReponse;
+import fr.catsoft.prolog.spec.interf.ITerme;
 import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Arrays;
 
 /**
  * Commentaire
@@ -142,6 +145,21 @@ public abstract class ATestMachine extends TestCase {
         Assert.assertTrue(reponse.isVrai());
         reponse = machine.questionner(machine.creerTerme("sym(a,a)"));
         Assert.assertTrue(reponse.isVrai());
+    }
+
+    @Test
+    public void testFaitsMultiples() {
+        IProlog prolog = getImpl();
+
+        ITerme termeHomme = prolog.creerTerme("homme(jean)");
+        ITerme termeSportif = prolog.creerTerme("sportif(jean)");
+
+        prolog.ajouterFait(termeHomme);
+        prolog.ajouterFait(termeSportif);
+        IReponse reponse = prolog.questionner(Arrays.asList(prolog.creerTerme("homme(X)"), prolog.creerTerme("sportif(X)")));
+        assertTrue(reponse.isVrai());
+        assertTrue(getSize(reponse.getFaitsMultiples()) == 1);
+        assertTrue(reponse.getFaitsMultiples().iterator().next().equals(Arrays.asList(termeHomme, termeSportif)));
     }
 
     @Test

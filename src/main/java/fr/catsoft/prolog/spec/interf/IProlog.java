@@ -16,10 +16,6 @@ public interface IProlog {
 
     void setRegleManager(IRegleManager regleManager);
 
-    IRegle creerRegle(ITerme resultat, ITerme... resultats);
-
-    ITerme creerTerme(String chaine);
-
     void ajouterFait(ITerme fait);
 
     void ajouterRegle(IRegle regle);

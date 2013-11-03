@@ -1,6 +1,8 @@
 package fr.catsoft.prolog.spec.base;
 
 import fr.catsoft.commons.common.exception.ApplicationException;
+import fr.catsoft.commons.common.modele.interfaces.IFonction;
+import fr.catsoft.commons.common.outil.ListOutil;
 import fr.catsoft.prolog.spec.interf.ITerme;
 
 import java.util.ArrayList;
@@ -97,10 +99,12 @@ public abstract class ATerme implements ITerme {
         if (getArguments().isEmpty()) {
             return getNom();
         }
-        String retour = getNom() + "/" + getArite() + "(";
-        for (ITerme arg : getArguments()) {
-            retour += arg.toString() + ",";
-        }
+        String retour = getNom() + "(" + ListOutil.toString(getArguments(), new IFonction<String, ITerme>() {
+            @Override
+            public String exec(ITerme parametres) {
+                return parametres.toString();
+            }
+        }, ",");
         return retour + ")";
     }
 
